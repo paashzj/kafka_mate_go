@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/paashzj/gutil"
 	"go.uber.org/zap"
 	"kafka_mate_go/pkg/config"
 	"kafka_mate_go/pkg/kafka"
@@ -19,20 +20,23 @@ func main() {
 		util.Logger().Error("generate config failed ", zap.Error(err))
 	}
 	if config.RaftEnable {
-		err := util.CallScript(path.KfkStartRaftScript)
+		stdout, stderr, err := gutil.CallScript(path.KfkStartRaftScript)
+		util.Logger().Info("shell result ", zap.String("stdout", stdout), zap.String("stderr", stderr))
 		if err != nil {
 			util.Logger().Error("start kafka server failed ", zap.Error(err))
 			os.Exit(1)
 		}
 	} else {
 		if !config.ClusterEnable {
-			err := util.CallScript(path.KfkStartStandaloneScript)
+			stdout, stderr, err := gutil.CallScript(path.KfkStartStandaloneScript)
+			util.Logger().Info("shell result ", zap.String("stdout", stdout), zap.String("stderr", stderr))
 			if err != nil {
 				util.Logger().Error("start kafka server failed ", zap.Error(err))
 				os.Exit(1)
 			}
 		} else {
-			err := util.CallScript(path.KfkStartScript)
+			stdout, stderr, err := gutil.CallScript(path.KfkStartScript)
+			util.Logger().Info("shell result ", zap.String("stdout", stdout), zap.String("stderr", stderr))
 			if err != nil {
 				util.Logger().Error("start kafka server failed ", zap.Error(err))
 				os.Exit(1)
