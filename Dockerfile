@@ -16,4 +16,4 @@ COPY config/server_original.properties /opt/sh/kafka/config/server_original.prop
 
 WORKDIR /opt/sh/kafka
 
-CMD ["/usr/local/bin/dumb-init", "bash", "-vx", "/opt/sh/kafka/mate/scripts/start.sh"]
+CMD ["/usr/bin/dumb-init", "bash", "-vx", "/opt/sh/kafka/mate/scripts/start.sh"]
