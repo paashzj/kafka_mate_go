@@ -17,6 +17,7 @@ var (
 
 func init() {
 	ClusterEnable = gutil.GetEnvBool("CLUSTER_ENABLE", false)
+	RaftEnable = gutil.GetEnvBool("RAFT_ENABLE", true)
 	ZkAddress = gutil.GetEnvStr("ZK_ADDR", "localhost:2181")
 	KafkaSocketSendBufferBytes = gutil.GetEnvInt64("KAFKA_SOCKET_SEND_BUFFER_BYTES", 102400)
 	KafkaSocketReceiveBufferBytes = gutil.GetEnvInt64("KAFKA_SOCKET_RECEIVE_BUFFER_BYTES", 102400)
