@@ -3,6 +3,7 @@ package kafka
 import (
 	"fmt"
 	"github.com/paashzj/gutil"
+	"go.uber.org/zap"
 	"io/ioutil"
 	"kafka_mate_go/pkg/config"
 	"kafka_mate_go/pkg/path"
@@ -11,6 +12,29 @@ import (
 	"strconv"
 	"strings"
 )
+
+func Start() {
+	var stdout, stderr string
+	var err error
+	if config.RaftEnable {
+		if !config.ClusterEnable {
+			stdout, stderr, err = gutil.CallScript(path.KfkStartRaftStandaloneScript)
+		} else {
+			stdout, stderr, err = gutil.CallScript(path.KfkStartRaftScript)
+		}
+	} else {
+		if !config.ClusterEnable {
+			stdout, stderr, err = gutil.CallScript(path.KfkStartStandaloneScript)
+		} else {
+			stdout, stderr, err = gutil.CallScript(path.KfkStartScript)
+		}
+	}
+	util.Logger().Info("shell result ", zap.String("stdout", stdout), zap.String("stderr", stderr))
+	if err != nil {
+		util.Logger().Error("start kafka server failed ", zap.Error(err))
+		os.Exit(1)
+	}
+}
 
 func Config() error {
 	configProp, err := initFromFile(path.KfkOriginalConfig)
@@ -26,6 +50,7 @@ func Config() error {
 		configProp.Set("listeners", "PLAINTEXT://"+os.Getenv("HOSTNAME")+".kafka:9092")
 		configProp.Set("zookeeper.connect", config.ZkAddress)
 	}
+	configProp.Set("log.dirs", path.KfkHome+"/logs")
 	configProp.SetInt64("socket.send.buffer.bytes", config.KafkaSocketSendBufferBytes)
 	configProp.SetInt64("socket.receive.buffer.bytes", config.KafkaSocketReceiveBufferBytes)
 	if config.KafkaMessageMaxBytes != -1 {

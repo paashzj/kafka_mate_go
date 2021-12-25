@@ -15,10 +15,10 @@ var (
 
 // mate
 var (
-	KfkMatePath              = filepath.FromSlash(KfkHome + "/mate")
-	KfkScripts               = filepath.FromSlash(KfkMatePath + "/scripts")
-	KfkInitScript            = filepath.FromSlash(KfkScripts + "/init-kafka.sh")
-	KfkStartScript           = filepath.FromSlash(KfkScripts + "/start-kafka.sh")
-	KfkStartRaftScript       = filepath.FromSlash(KfkScripts + "/start-kafka-raft.sh")
-	KfkStartStandaloneScript = filepath.FromSlash(KfkScripts + "/start-kafka-standalone.sh")
+	KfkMatePath                  = filepath.FromSlash(KfkHome + "/mate")
+	KfkScripts                   = filepath.FromSlash(KfkMatePath + "/scripts")
+	KfkStartScript               = filepath.FromSlash(KfkScripts + "/start-kafka.sh")
+	KfkStartRaftScript           = filepath.FromSlash(KfkScripts + "/start-kafka-raft.sh")
+	KfkStartStandaloneScript     = filepath.FromSlash(KfkScripts + "/start-kafka-standalone.sh")
+	KfkStartRaftStandaloneScript = filepath.FromSlash(KfkScripts + "/start-kafka-raft-standalone.sh")
 )
