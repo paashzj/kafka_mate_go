@@ -37,7 +37,13 @@ func Start() {
 }
 
 func Config() error {
-	configProp, err := initFromFile(path.KfkOriginalConfig)
+	var err error
+	var configProp *gutil.ConfigProperties
+	if config.RaftEnable {
+		configProp, err = initFromFile(path.KRaftOriginalConfig)
+	} else {
+		configProp, err = initFromFile(path.KfkOriginalConfig)
+	}
 	if err != nil {
 		return err
 	}
@@ -62,7 +68,11 @@ func Config() error {
 	if config.ReplicaFetchMaxBytes != -1 {
 		configProp.SetInt64("replica.fetch.max.bytes", config.ReplicaFetchMaxBytes)
 	}
-	return configProp.Write(path.KfkConfig)
+	if config.RaftEnable {
+		return configProp.Write(path.KRaftConfig)
+	} else {
+		return configProp.Write(path.KfkConfig)
+	}
 }
 
 func initFromFile(file string) (*gutil.ConfigProperties, error) {
