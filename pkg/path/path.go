@@ -5,12 +5,15 @@ import (
 	"path/filepath"
 )
 
-// zookeeper
+// kafka
 var (
-	KfkHome           = os.Getenv("KAFKA_HOME")
-	KfkConfigDir      = filepath.FromSlash(KfkHome + "/config")
-	KfkConfig         = filepath.FromSlash(KfkConfigDir + "/server.properties")
-	KfkOriginalConfig = filepath.FromSlash(KfkConfigDir + "/server_original.properties")
+	KfkHome             = os.Getenv("KAFKA_HOME")
+	KfkConfigDir        = filepath.FromSlash(KfkHome + "/config")
+	KfkConfig           = filepath.FromSlash(KfkConfigDir + "/server.properties")
+	KfkOriginalConfig   = filepath.FromSlash(KfkConfigDir + "/server_original.properties")
+	KRaftConfigDir      = filepath.FromSlash(KfkConfigDir + "/kraft")
+	KRaftConfig         = filepath.FromSlash(KRaftConfigDir + "/server.properties")
+	KRaftOriginalConfig = filepath.FromSlash(KRaftConfigDir + "/server_original.properties")
 )
 
 // mate
